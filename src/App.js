@@ -1,6 +1,5 @@
 import React from "react";
 import SlotMachine from "./components/SlotMachine";
-import items from "./data/items";
 import "./App.css";
 
 function App() {
