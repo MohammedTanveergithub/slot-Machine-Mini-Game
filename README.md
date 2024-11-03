@@ -1,70 +1,126 @@
-# Getting Started with Create React App
+---
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Slot Machine Project Documentation
 
-## Available Scripts
+### Project Overview
+This project is a React-based slot machine mini-game where users can spin reels to win items with different types, rarities, and counts, suitable for a shooter game theme. It includes a spin button to initiate the game, a dynamic rolling animation, and a reward display.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+### Project Structure
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```
+slot-machine/
+├── public/
+│   ├── index.html
+│   ├── images/
+│       ├── weapon.png
+│       ├── consumable.png
+│       ├── material.png
+│   └── ...
+├── src/
+│   ├── components/
+│   │   ├── SlotMachine.js
+│   │   ├── Reel.js
+│   │   ├── SpinButton.js
+│   ├── data/
+│   │   └── items.js
+│   ├── App.js
+│   ├── App.css
+│   ├── index.js
+│   └── index.css
+└── package.json
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Directory and File Descriptions
 
-### `npm test`
+#### 1. **public/**
+   - Contains assets and the main HTML entry point for the application.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+   - **index.html**: The root HTML file where the React app is injected.
 
-### `npm run build`
+   - **images/**: Stores images representing items that appear on the slot machine reels, such as `weapon.png`, `consumable.png`, and `material.png`.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### 2. **src/**
+   - Contains the main source code and component structure for the slot machine application.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   - **App.js**: The main component that imports and renders the `SlotMachine` component.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   - **App.css**: General styles for the application, such as background and layout settings.
 
-### `npm run eject`
+   - **index.js**: Entry point for the React app, responsible for rendering the `App` component into the root element in `index.html`.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   - **index.css**: Base styles and CSS resets.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### 3. **src/components/**
+   - Contains all primary components used to build the slot machine.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+   - **SlotMachine.js**
+     - Main slot machine component that manages the game state, initiates spins, and displays rewards.
+     - Calls `spinReels` to set items and rolling states, uses delays to stagger reel stopping times, and controls animations.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+   - **Reel.js**
+     - Represents a single reel of the slot machine.
+     - Receives an `item` prop for the item displayed on the reel and an `isRolling` prop to control its animation.
+     - Uses CSS for the spin animation (`rolling` class) and stop (`stop-rolling` class) with item images and rarity styles.
 
-## Learn More
+   - **SpinButton.js**
+     - A button component to initiate the spin when clicked.
+     - Calls `spinReels` function from `SlotMachine` to start the reels.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### 4. **src/data/**
+   - Contains game data such as item lists or configurations.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+   - **items.js**: Defines a list of items that may appear on the reels. Each item includes properties like `type`, `rarity`, and `count`.
 
-### Code Splitting
+     ```javascript
+     const items = [
+       { type: "Weapon", rarity: "Legendary", count: 1 },
+       { type: "Consumable", rarity: "Rare", count: 2 },
+       { type: "Material", rarity: "Common", count: 3 },
+       // additional items
+     ];
+     export default items;
+     ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+### Setup Instructions
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+1. **Install dependencies**:
+   - Run `npm install` in the project root to install all dependencies defined in `package.json`.
 
-### Making a Progressive Web App
+2. **Run the application**:
+   - Start the development server by running `npm start`.
+   - Open `http://localhost:3000` in a browser to view the slot machine game.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+3. **Build the application**:
+   - To create an optimized production build, run `npm run build`.
+   - The build output will be in the `build/` folder.
 
-### Advanced Configuration
+4. **Deploying the App**:
+   - The app can be deployed to any static hosting service like GitHub Pages, Vercel, or Netlify by uploading the contents of the `build/` directory.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+### Component Interaction Flow
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+1. **User clicks SpinButton**.
+2. **SlotMachine**:
+   - Sets `isRolling` to `true` for all reels.
+   - Selects random items from `items.js` for each reel.
+   - Sets the selected items in state and gradually stops each reel with delays.
+3. **Reel**:
+   - Animates using CSS classes based on `isRolling` prop.
+   - Shows the final item when stopped.
+4. **Reward Display**:
+   - Updates based on the items displayed on the reels after they stop.
 
-### `npm run build` fails to minify
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Additional Notes
+
+- **CSS Styling**: The animations and styles are defined in `Reel.css` to create a smooth rolling effect. Customize further for appearance.
+- **Image Assets**: Add additional item images in `public/images` to expand the slot machine item pool.
+
+---
